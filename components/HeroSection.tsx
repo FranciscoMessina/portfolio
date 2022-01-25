@@ -1,13 +1,17 @@
 import React from 'react';
 import { MdPerson } from 'react-icons/md';
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/store';
 import BackgroundAnimation from '../public/backgroundAnim.svg';
-import { DataText } from '../text';
+import { DataText, english, spanish } from '../text';
 
-interface HeroSectionProps {
-	text: DataText;
-}
+interface HeroSectionProps {}
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ text }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({}) => {
+	const locale = useSelector((state: RootState) => state.text.locale);
+
+	const text = locale === 'en' ? english : spanish;
+
 	return (
 		<div className='container flex items-center justify-between w-full px-6 mx-auto lg:px-24'>
 			<div className='flex flex-wrap md:flex-nowrap'>

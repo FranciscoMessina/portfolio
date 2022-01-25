@@ -8,12 +8,11 @@ import { ProjectsSection } from '../components/ProjectsSection';
 import { AboutMe } from '../components/AboutMe';
 import { Footer } from '../components/Footer';
 import { english, spanish } from '../text';
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/store';
+import { useRouter } from 'next/router';
 
 export default function Home() {
-	const [language, setLanguage] = useState(true);
-
-	let text = language ? english : spanish;
-
 	useEffect(() => {
 		function updateList() {
 			const titles = [...document.querySelectorAll('h1, h2')].sort((a, b) => {
@@ -44,30 +43,26 @@ export default function Home() {
 				].classList.add('text-selected-text');
 		}
 
-		const test = () => {
+		const handleScroll = () => {
 			updateList();
 		};
 
 		updateList();
-		window.addEventListener('scroll', test);
+		window.addEventListener('scroll', handleScroll);
 
 		return () => {
-			window.removeEventListener('scroll', test);
+			window.removeEventListener('scroll', handleScroll);
 		};
 	}, []);
 
 	return (
 		<div>
-			<Head>
-				<title>Francisco Messina | Fullstack Developer</title>
-				<link rel='icon' href='/favicon.ico' />
-			</Head>
-			<Header text={text} />
-			<HeroSection text={text} />
-			<ProjectsSection text={text} />
-			<AboutMe text={text} />
-			<ContactMe text={text} />
-			<Footer changeLang={() => setLanguage(curr => !curr)} text={text} />
+			<Header />
+			<HeroSection />
+			<ProjectsSection />
+			<AboutMe />
+			<ContactMe />
+			<Footer />
 			{/* <BackgroundAnimation /> */}
 		</div>
 	);

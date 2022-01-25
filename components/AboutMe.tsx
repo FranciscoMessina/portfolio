@@ -6,14 +6,18 @@ import {
 	SiTailwindcss,
 	SiTypescript,
 } from 'react-icons/si';
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/store';
 
-import { DataText } from '../text';
+import { DataText, english, spanish } from '../text';
 
-interface AboutMeProps {
-	text: DataText;
-}
+interface AboutMeProps {}
 
-export const AboutMe: React.FC<AboutMeProps> = ({ text }) => {
+export const AboutMe: React.FC<AboutMeProps> = ({}) => {
+	const locale = useSelector((state: RootState) => state.text.locale);
+
+	const text = locale === 'en' ? english : spanish;
+
 	return (
 		<div className='container flex flex-col items-center justify-between w-full px-8 mx-auto mt-64 md:px-14 lg:px-24'>
 			<section className='w-full'>

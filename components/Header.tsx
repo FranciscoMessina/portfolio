@@ -2,14 +2,19 @@ import { IconButton } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/store';
 import { useWindowSize } from '../hooks/useWindowSize';
-import { DataText } from '../text';
+import { DataText, english, spanish } from '../text';
 
-interface HeaderProps {
-	text: DataText;
-}
+interface HeaderProps {}
 
-export const Header: React.FC<HeaderProps> = ({ text }) => {
+export const Header: React.FC<HeaderProps> = ({}) => {
+	const router = useRouter();
+	const locale = useSelector((state: RootState) => state.text.locale);
+
+	const text = locale === 'en' ? english : spanish;
+
 	const [open, setOpen] = useState(false);
 	const { width } = useWindowSize();
 
@@ -40,16 +45,23 @@ export const Header: React.FC<HeaderProps> = ({ text }) => {
 						open ? 'mobile-menu' : 'desktop-menu'
 					} transition-all duration-300`}
 				>
-					<a href='#' className='text-selected-text nav-item'>
+					<a href='/#' className='nav-item'>
 						{text.nav.home}
 					</a>
-					<a href='#projects' className='nav-item'>
+					<a
+						href={`${
+							router.pathname.includes('projects') ? '/projects' : '/#projects'
+						}`}
+						className={`nav-item ${
+							router.pathname.includes('projects') && 'text-selected-text'
+						}`}
+					>
 						{text.nav.projects}
 					</a>
-					<a href='#about' className='nav-item'>
+					<a href='/#about' className='nav-item'>
 						{text.nav.about}
 					</a>
-					<a href='#contact' className='nav-item'>
+					<a href='/#contact' className='nav-item'>
 						<button
 							className='px-6 py-2 font-bold transition-all duration-200 transform bg-theme hover:translate-x-2 active:scale-95'
 							style={{ color: 'white' }}
