@@ -4,4 +4,15 @@ This is my personal portfolio, since design is not my favorite thing I took insp
 
 ## Deployment
 
-Visit the site [here](http://www.franciscomessina.com):
+Visit the site [here.](http://www.franciscomessina.com)
+
+## Technologies
+
+Project built with:
+
+- React
+- Next.js
+- Redux Toolkit
+- TailwindCSS
+- Firebase
+- Formik
