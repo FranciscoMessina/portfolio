@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { isBrowser } from '../utils/isBrowser';
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
+	if (!isBrowser()) return ['not', 'yet'];
 	// State to store our value
 	// Pass initial state function to useState so logic is only executed once
 	const [storedValue, setStoredValue] = useState<T>(() => {

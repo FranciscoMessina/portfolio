@@ -42,11 +42,10 @@ export function MultipleFileUpload({
 		setFiles(curr => [...curr, ...mappedAcc, ...rejFiles]);
 	}, []);
 
-	const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
-		useDropzone({
-			onDrop,
-			accept: 'image/*',
-		});
+	const { getRootProps, getInputProps } = useDropzone({
+		onDrop,
+		accept: 'image/*',
+	});
 
 	function onDelete(file: File) {
 		setFiles(curr => curr.filter(fw => fw.file !== file));
@@ -70,8 +69,8 @@ export function MultipleFileUpload({
 	return (
 		<Fragment>
 			<div
-				{...getRootProps({ isFocused, isDragAccept, isDragReject })}
-				className='border-2 border-theme h-40 flex items-center justify-center w-40 cursor-pointer'
+				{...getRootProps()}
+				className='border-2 border-theme h-40 flex items-center justify-center w-40 cursor-pointer min-w-[160px]'
 			>
 				<input {...getInputProps()} />
 

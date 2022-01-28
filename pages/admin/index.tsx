@@ -2,15 +2,23 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { logOut, app } from '../../firebase/firebase';
+import { logOut, app, getProjects, colRef } from '../../firebase/firebase';
 import { CircularProgress } from '@mui/material';
 import Link from 'next/link';
 import { MdClose } from 'react-icons/md';
 import { useWindowSize } from '../../hooks/useWindowSize';
+import { ProjectData } from '../../utils/types';
+import {
+	useCollection,
+	useCollectionData,
+} from 'react-firebase-hooks/firestore';
+import projects from '../projects';
 
 function Admin() {
 	const router = useRouter();
 	const [user, loading, error] = useAuthState(getAuth(app));
+
+	const [value, projLoading, projErr] = useCollection<ProjectData>(colRef);
 
 	const [open, setOpen] = useState(false);
 	const { width } = useWindowSize();
@@ -112,17 +120,24 @@ function Admin() {
 				</div>
 			</header>
 			<div className='container flex flex-col items-center gap-4 justify-center w-full px-8 mx-auto mt-32 md:px-14 lg:px-24'>
-				<div className='w-full max-w-2xl bg-nav border-b-2 border-theme px-4 py-2 flex justify-between'>
-					<span>Project Title</span>
-					<div className='space-x-2 md:space-x-4'>
-						<button className='bg-amber-500 px-1 uppercase shadow shadow-amber-500/70'>
-							Edit
-						</button>
-						<button className='bg-red-500 px-1 uppercase shadow shadow-red-500/70'>
-							delete
-						</button>
+				{value?.docs.map(project => (
+					<div
+						key={project.id}
+						className='w-full max-w-2xl bg-nav border-b-2 border-theme px-4 py-2 flex justify-between'
+					>
+						<span>{project.data().title}</span>
+						<div className='space-x-2 md:space-x-4'>
+							<Link href={`/admin/edit/${project.id}`}>
+								<button className='bg-amber-500 px-1 uppercase shadow shadow-amber-500/70'>
+									Edit
+								</button>
+							</Link>
+							<button className='bg-red-500 px-1 uppercase shadow shadow-red-500/70'>
+								delete
+							</button>
+						</div>
 					</div>
-				</div>
+				))}
 			</div>
 		</>
 	);

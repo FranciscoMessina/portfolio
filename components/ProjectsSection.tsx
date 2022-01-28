@@ -1,15 +1,24 @@
+import { collection, getFirestore } from 'firebase/firestore';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
+import { colRef, getProjects } from '../firebase/firebase';
 import { DataText, spanish, english } from '../text';
+import { ProjectData } from '../utils/types';
+import { CardLoader } from './CardLoader';
 import { ProjectCard } from './ProjectCard';
+import {
+	useCollection,
+	useCollectionData,
+} from 'react-firebase-hooks/firestore';
 
 interface ProjectsSectionProps {}
 
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({}) => {
-	const router = useRouter();
+	const [value, loading, error] = useCollection<ProjectData>(colRef);
+
 	const locale = useSelector((state: RootState) => state.text.locale);
 
 	const text = locale === 'en' ? english : spanish;
@@ -26,21 +35,21 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({}) => {
 				<p className='section-paragraph'>{text.home_projects_desc}</p>
 
 				<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
-					<ProjectCard
-						id={1}
-						img='https://images.unsplash.com/photo-1576153192396-180ecef2a715?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'
-						title='Netflix Clone'
-					/>
-					<ProjectCard
-						id={2}
-						img='https://images.unsplash.com/photo-1576153192396-180ecef2a715?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'
-						title='Netflix Clone'
-					/>
-					<ProjectCard
-						id={3}
-						img='https://images.unsplash.com/photo-1576153192396-180ecef2a715?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'
-						title='Netflix Clone'
-					/>
+					{loading && (
+						<>
+							<CardLoader />
+							<CardLoader />
+							<CardLoader />
+						</>
+					)}
+
+					{value?.docs.map((project, index) => (
+						<ProjectCard
+							key={project.id}
+							id={project.id}
+							project={project.data() as ProjectData}
+						/>
+					))}
 
 					<Link href='/projects'>
 						<button

@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import {
+	useCollection,
+	useCollectionData,
+} from 'react-firebase-hooks/firestore';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
+import { CardLoader } from '../../components/CardLoader';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { ProjectCard } from '../../components/ProjectCard';
+import { colRef, getProjects } from '../../firebase/firebase';
 import { english, spanish } from '../../text';
+import { ProjectData } from '../../utils/types';
 
 function Projects() {
+	const [value, loading, error] = useCollection<ProjectData>(colRef);
+
 	const locale = useSelector((state: RootState) => state.text.locale);
 
 	const text = locale === 'en' ? english : spanish;
@@ -21,16 +30,21 @@ function Projects() {
 					</h2>
 					<p className='section-paragraph'>{text.projects_desc}</p>
 					<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 '>
-						<ProjectCard
-							id={1}
-							img='https://images.unsplash.com/photo-1576153192396-180ecef2a715?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'
-							title='Netflix Clone'
-						/>
-						<ProjectCard
-							id={2}
-							img='https://images.unsplash.com/photo-1576153192396-180ecef2a715?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'
-							title='Netflix Clone'
-						/>
+						{loading && (
+							<>
+								<CardLoader />
+								<CardLoader />
+								<CardLoader />
+							</>
+						)}
+
+						{value?.docs.map((project, index) => (
+							<ProjectCard
+								key={project.id}
+								id={project.id}
+								project={project.data() as ProjectData}
+							/>
+						))}
 
 						<button
 							type='button'

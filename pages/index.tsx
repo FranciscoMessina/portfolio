@@ -13,6 +13,8 @@ import { RootState } from '../app/store';
 import { useRouter } from 'next/router';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { swap } from '../features/text/textSlice';
+import { ProjectData } from '../utils/types';
+import { getProjects } from '../firebase/firebase';
 
 export default function Home() {
 	const [lang, setLang] = useLocalStorage('lang', 'en');
