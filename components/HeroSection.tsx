@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 import { MdPerson } from 'react-icons/md';
 import { useSelector } from 'react-redux';
@@ -16,53 +17,93 @@ export const HeroSection: React.FC<HeroSectionProps> = ({}) => {
 		<div className='container flex items-center justify-between w-full px-6 mx-auto lg:px-24'>
 			<div className='flex flex-wrap md:flex-nowrap'>
 				<nav className='fixed hidden lg:inline-block lg:mr-24 lg:w-4 left-percentage'>
-					<div className='absolute space-y-6 transform -translate-x-1/2 left-[50%] mt-36'>
-						<a
-							href='#'
-							className='relative flex items-center border-4 rounded-full nav-dot selected-circle w-7 h-7 border-nav group'
+					<>
+						<motion.div
+							initial={{ translateY: '-1500px' }}
+							animate={{ translateY: '0px' }}
+							transition={{
+								delay: 0.5,
+								duration: 1,
+								bounce: 0.25,
+								type: 'spring',
+							}}
+							className='absolute space-y-6 transform -translate-x-1/2 left-[50%] mt-44'
 						>
-							<span className='z-10 hidden px-2 py-1 ml-10 transition-all duration-300 bg-black rounded-md opacity-0 group-hover:opacity-100 group-hover:inline-block'>
-								{text.nav.home}
-							</span>
-						</a>
-						<a
-							href='#projects'
-							className='relative flex items-center border-4 rounded-full nav-dot w-7 h-7 border-nav group'
-						>
-							<span className='z-10 hidden px-2 py-1 ml-10 transition-all duration-300 bg-black rounded-md opacity-0 group-hover:opacity-100 group-hover:inline-block'>
-								{text.nav.projects}
-							</span>
-						</a>
-						<a
-							href='#about'
-							className='relative flex items-center border-4 rounded-full nav-dot w-7 h-7 border-nav group'
-						>
-							<span className='z-10 hidden px-2 py-1 ml-10 transition-all duration-300 bg-black rounded-md opacity-0 group-hover:opacity-100 group-hover:inline-block'>
-								{text.nav.about}
-							</span>
-						</a>
+							<a
+								href='#'
+								className=' flex items-center border-4 rounded-full nav-dot selected-circle w-7 h-7 border-nav group'
+							>
+								<span className='z-10 hidden px-2 py-1 ml-10 transition-all duration-300 bg-black rounded-md opacity-0 group-hover:opacity-100 group-hover:inline-block text-sm'>
+									{text.nav.home}
+								</span>
+							</a>
+							<a
+								href='#projects'
+								className=' flex items-center border-4 rounded-full nav-dot w-7 h-7 border-nav group'
+							>
+								<span className='z-10 hidden px-2 py-1 ml-10 transition-all duration-300 bg-black rounded-md opacity-0 group-hover:opacity-100 group-hover:inline-block text-sm'>
+									{text.nav.projects}
+								</span>
+							</a>
+							<a
+								href='#about'
+								className=' flex items-center border-4 rounded-full nav-dot w-7 h-7 border-nav group'
+							>
+								<span className='z-10 hidden px-2 py-1 ml-10 transition-all duration-300 bg-black rounded-md opacity-0 group-hover:opacity-100 group-hover:inline-block text-sm whitespace-nowrap'>
+									{text.nav.about}
+								</span>
+							</a>
 
-						<a
-							href='#contact'
-							className='relative flex items-center border-4 rounded-full nav-dot w-7 h-7 border-nav group'
-						>
-							<span className='z-10 hidden px-2 py-1 ml-10 transition-all duration-300 bg-black rounded-md opacity-0 group-hover:opacity-100 group-hover:inline-block'>
-								{text.nav.contact}
-							</span>
-						</a>
-					</div>
+							<a
+								href='#contact'
+								className=' flex items-center border-4 rounded-full nav-dot w-7 h-7 border-nav group'
+							>
+								<span className='z-10 hidden px-2 py-1 ml-10 transition-all duration-300 bg-black rounded-md opacity-0 group-hover:opacity-100 group-hover:inline-block text-sm whitespace-nowrap'>
+									{text.nav.contact}
+								</span>
+							</a>
+						</motion.div>
+					</>
 				</nav>
 
 				<div className='flex flex-wrap justify-center max-w-xl mt-20 sm:mt-0 lg:ml-20 md:justify-start md:my-36 '>
-					<h1 className='text-4xl font-bold text-center md:text-6xl lg:text-7xl md:text-left '>
-						{/* Hi! My name is <br />
-						Francisco Messina */}
+					<motion.h1
+						className='text-4xl font-bold text-center md:text-6xl lg:text-7xl md:text-left'
+						initial={{ translateY: '-1500px' }}
+						animate={{ translateY: '0px' }}
+						transition={{
+							delay: 0.5,
+							duration: 1,
+							bounce: 0.25,
+							type: 'spring',
+						}}
+					>
 						{text.welcome}
-					</h1>
-					<p className='text-center md:text-left section-paragraph'>
+					</motion.h1>
+					<motion.p
+						className='text-center md:text-left section-paragraph'
+						initial={{ translateX: '-1500px' }}
+						animate={{ translateX: '0px' }}
+						transition={{
+							delay: 0.75,
+							duration: 1,
+							bounce: 0.25,
+							type: 'spring',
+						}}
+					>
 						{text.short_desc}
-					</p>
-					<div className='flex justify-center w-full md:justify-start'>
+					</motion.p>
+					<motion.div
+						className='flex justify-center w-full md:justify-start'
+						initial={{ scale: 0 }}
+						animate={{ scale: 1 }}
+						transition={{
+							delay: 1,
+							duration: 1,
+							bounce: 0.25,
+							type: 'spring',
+						}}
+					>
 						<a href='#about'>
 							<button className='flex items-center px-8 py-4 mt-12 space-x-3 font-bold text-white transition-all duration-300 transform bg-theme hover:translate-x-3 active:scale-95'>
 								<div>
@@ -71,7 +112,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({}) => {
 								<span>{text.nav.about}.</span>
 							</button>
 						</a>
-					</div>
+					</motion.div>
 				</div>
 			</div>
 			<svg

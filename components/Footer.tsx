@@ -4,11 +4,22 @@ import { MdArrowUpward, MdLanguage } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { swap } from '../features/text/textSlice';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 import { DataText, english, spanish } from '../text';
 
 interface FooterProps {}
 
 export const Footer: React.FC<FooterProps> = ({}) => {
+	const [lang, setLang] = useLocalStorage('lang', 'en');
+
+	const changeLocale = () => {
+		if (lang === 'en') {
+			setLang('es');
+		} else {
+			setLang('en');
+		}
+	};
+
 	const dispatch = useDispatch();
 	const locale = useSelector((state: RootState) => state.text.locale);
 
@@ -25,6 +36,7 @@ export const Footer: React.FC<FooterProps> = ({}) => {
 				className='flex items-center gap-2 cursor-pointer select-none '
 				onClick={() => {
 					dispatch(swap());
+					changeLocale();
 					setTimeout(() => window.scroll({ top: 0, behavior: 'smooth' }), 500);
 				}}
 			>

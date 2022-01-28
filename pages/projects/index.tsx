@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../app/store';
-import { Footer } from '../components/Footer';
-import { Header } from '../components/Header';
-import { ProjectCard } from '../components/ProjectCard';
-import { english, spanish } from '../text';
+import { RootState } from '../../app/store';
+import { Footer } from '../../components/Footer';
+import { Header } from '../../components/Header';
+import { ProjectCard } from '../../components/ProjectCard';
+import { english, spanish } from '../../text';
 
 function Projects() {
 	const locale = useSelector((state: RootState) => state.text.locale);

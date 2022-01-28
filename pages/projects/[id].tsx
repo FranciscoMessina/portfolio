@@ -23,7 +23,9 @@ function Project() {
 						<h3 className='text-2xl mt-4'>Netflix Clone</h3>
 						<div className='flex flex-wrap gap-2 my-5'>
 							{tags.map((tag, idx) => (
-								<span className='bg-theme p-1 text-xs'>{tag}</span>
+								<span className='bg-theme p-1 text-xs' key={idx}>
+									{tag}
+								</span>
 							))}
 						</div>
 						{images.length > 1 ? (
@@ -58,7 +60,7 @@ function Project() {
 									href='http://github.com'
 									target='_blank'
 									rel='noopener noreferrer'
-									className='bg-theme px-4 py-2'
+									className='transition-all duration-200 transform bg-theme hover:translate-x-2 active:scale-95 px-4 py-2'
 								>
 									Github
 								</a>
@@ -66,7 +68,7 @@ function Project() {
 									href='http://github.com'
 									target='_blank'
 									rel='noopener noreferrer'
-									className='bg-theme px-4 py-2'
+									className='transition-all duration-200 transform bg-theme hover:translate-x-2 active:scale-95 px-4 py-2'
 								>
 									Deployment
 								</a>

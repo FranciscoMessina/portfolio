@@ -40,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
 			<div className='container flex items-center justify-between w-full px-6 mx-auto lg:px-24'>
 				<div className='text-xl font-bold'>Francisco.Messina</div>
 
-				<div
+				<nav
 					className={`${
 						open ? 'mobile-menu' : 'desktop-menu'
 					} transition-all duration-300`}
@@ -70,12 +70,12 @@ export const Header: React.FC<HeaderProps> = ({}) => {
 						</button>
 					</a>
 					<MdClose
-						className='absolute right-4 md:hidden'
+						className='absolute right-4 md:hidden cursor-pointer'
 						size={'1.5rem'}
 						onClick={toggleMobileMenu}
 					/>
-				</div>
-				<div className='md:hidden'>
+				</nav>
+				<div className='md:hidden cursor-pointer'>
 					<svg
 						width='26'
 						height='18'

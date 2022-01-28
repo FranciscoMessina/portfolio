@@ -2,36 +2,37 @@ import { Field, Form, Formik } from 'formik';
 import Link from 'next/link';
 import React from 'react';
 import { Header } from '../components/Header';
-import {
-	createUserWithEmail,
-	signInWithEmail,
-	UserData,
-} from '../firebase/firebase';
-import { english } from '../text';
+import { app, logOut } from '../firebase/firebase';
+import { getAuth } from 'firebase/auth';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { CircularProgress } from '@mui/material';
+import { useRouter } from 'next/router';
 
 interface loginProps {}
 
 const Login: React.FC<loginProps> = ({}) => {
-	const handleSubmit = async (values: any, helpers: any) => {
-		console.log(values);
-		// const userCred = await createUserWithEmail(values);
-		const algo = await signInWithEmail(values);
+	const [signInWithEmailAndPassword, user, loading, error] =
+		useSignInWithEmailAndPassword(getAuth(app));
 
-		console.log(algo);
+	const handleSubmit = async (values: any, helpers: any) => {
+		signInWithEmailAndPassword(values.email, values.password);
 	};
 
 	return (
 		<>
-			<Header text={english} />
+			<Header />
 			<div className='container flex flex-col items-center justify-center w-full px-8 mx-auto mt-32 md:px-14 lg:px-24'>
 				<p className='mb-16 text-center'>
 					Hello! I think maybe you are lost, you should not be here, do you want
 					to go back to the{' '}
 					<Link href='/'>
-						<span className='text-blue-500 underline'>home page</span>
+						<span className='text-blue-500 underline cursor-pointer'>
+							home page
+						</span>
 					</Link>
 					?
 				</p>
+
 				<Formik
 					initialValues={{ email: '', password: '' }}
 					onSubmit={handleSubmit}
@@ -67,10 +68,13 @@ const Login: React.FC<loginProps> = ({}) => {
 							type='submit'
 							className='w-full py-2 transition-transform duration-300 transform bg-theme hover:translate-x-2'
 						>
-							Login
+							{loading ? 'Loading...' : 'Login'}
 						</button>
 					</Form>
 				</Formik>
+				{error?.message && (
+					<div className='mt-12 text-red-600'>Something went wrong, sorry!</div>
+				)}
 			</div>
 		</>
 	);

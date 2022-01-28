@@ -8,11 +8,26 @@ import { ProjectsSection } from '../components/ProjectsSection';
 import { AboutMe } from '../components/AboutMe';
 import { Footer } from '../components/Footer';
 import { english, spanish } from '../text';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { useRouter } from 'next/router';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { swap } from '../features/text/textSlice';
 
 export default function Home() {
+	const [lang, setLang] = useLocalStorage('lang', 'en');
+	const locale = useSelector((state: RootState) => state.text.locale);
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (locale === lang) return;
+
+		dispatch(swap());
+
+		return () => {};
+	}, []);
+
 	useEffect(() => {
 		function updateList() {
 			const titles = [...document.querySelectorAll('h1, h2')].sort((a, b) => {

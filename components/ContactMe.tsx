@@ -24,7 +24,6 @@ export const ContactMe: React.FC<ContactMeProps> = ({}) => {
 
 				<div className='grid w-full gap-8 mt-12 lg:grid-cols-2 lg:gap-32'>
 					<div className='mt-12'>
-						<p className='text-secondary'>555-555-1234</p>
 						<a
 							href='mailto:francisco@messina.ws'
 							className='block mt-3 underline text-secondary'

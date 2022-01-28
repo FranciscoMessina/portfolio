@@ -49,8 +49,8 @@ export function Slideshow({ images }: { images: string[] }) {
 				{images.map((_, idx) => (
 					<div
 						key={idx}
-						className={`cursor-pointer border-2 border-nav rounded-full w-3 h-3  ${
-							index === idx ? 'bg-theme' : ''
+						className={`cursor-pointer border border-nav rounded-full w-3 h-3  ${
+							index === idx ? 'bg-violet-700' : ''
 						}`}
 						onClick={() => {
 							setIndex(idx);

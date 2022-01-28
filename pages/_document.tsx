@@ -21,7 +21,7 @@ class MyDocument extends Document {
 						rel='stylesheet'
 					/>
 				</Head>
-				<body className='pb-12 text-white bg-body font-poppins '>
+				<body className='pb-12 text-white bg-body font-poppins'>
 					<Main />
 					<NextScript />
 				</body>
