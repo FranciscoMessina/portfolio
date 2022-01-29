@@ -1,18 +1,14 @@
+import { CircularProgress } from '@mui/material';
+import { getAuth } from 'firebase/auth';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { logOut, app, getProjects, colRef } from '../../firebase/firebase';
-import { CircularProgress } from '@mui/material';
-import Link from 'next/link';
+import { useCollection } from 'react-firebase-hooks/firestore';
 import { MdClose } from 'react-icons/md';
+import { app, colRef, logOut } from '../../firebase/firebase';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { ProjectData } from '../../utils/types';
-import {
-	useCollection,
-	useCollectionData,
-} from 'react-firebase-hooks/firestore';
-import projects from '../projects';
 
 function Admin() {
 	const router = useRouter();
@@ -54,9 +50,7 @@ function Admin() {
 					Hello! I think maybe you are lost, you should not be here, do you want
 					to go back to the{' '}
 					<Link href='/'>
-						<span className='text-blue-500 underline cursor-pointer'>
-							home page
-						</span>
+						<a className='text-blue-500 underline cursor-pointer'>home page</a>
 					</Link>
 					?
 				</span>
@@ -128,9 +122,9 @@ function Admin() {
 						<span>{project.data().title}</span>
 						<div className='space-x-2 md:space-x-4'>
 							<Link href={`/admin/edit/${project.id}`}>
-								<button className='bg-amber-500 px-1 uppercase shadow shadow-amber-500/70'>
+								<a className='bg-amber-500 px-1 uppercase shadow shadow-amber-500/70'>
 									Edit
-								</button>
+								</a>
 							</Link>
 							<button className='bg-red-500 px-1 uppercase shadow shadow-red-500/70'>
 								delete

@@ -1,7 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import { IconButton } from '@mui/material';
-import { Formik, Form, FieldArray } from 'formik';
-import Head from 'next/head';
-import Image from 'next/image';
+import { FieldArray, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import { MdDelete } from 'react-icons/md';
 import InputField from '../../components/InputField';

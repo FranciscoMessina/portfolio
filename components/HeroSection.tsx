@@ -3,8 +3,7 @@ import React from 'react';
 import { MdPerson } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
-import BackgroundAnimation from '../public/backgroundAnim.svg';
-import { DataText, english, spanish } from '../text';
+import { english, spanish } from '../text';
 
 interface HeroSectionProps {}
 

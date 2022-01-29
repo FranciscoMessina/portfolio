@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import {
-	useCollection,
-	useCollectionData,
-} from 'react-firebase-hooks/firestore';
+import React from 'react';
+import { useCollection } from 'react-firebase-hooks/firestore';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { CardLoader } from '../../components/CardLoader';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { ProjectCard } from '../../components/ProjectCard';
-import { colRef, getProjects } from '../../firebase/firebase';
+import { colRef } from '../../firebase/firebase';
 import { english, spanish } from '../../text';
 import { ProjectData } from '../../utils/types';
 
@@ -32,14 +29,21 @@ function Projects() {
 					<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 '>
 						{loading && (
 							<>
+								{/* <motion.div variants={variantChild}> */}
 								<CardLoader />
+								{/* </motion.div> */}
+								{/* <motion.div variants={variantChild}> */}
 								<CardLoader />
+								{/* </motion.div> */}
+								{/* <motion.div variants={variantChild}> */}
 								<CardLoader />
+								{/* </motion.div> */}
 							</>
 						)}
 
 						{value?.docs.map((project, index) => (
 							<ProjectCard
+								index={index}
 								key={project.id}
 								id={project.id}
 								project={project.data() as ProjectData}

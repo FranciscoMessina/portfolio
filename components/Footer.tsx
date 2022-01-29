@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { swap } from '../features/text/textSlice';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { DataText, english, spanish } from '../text';
+import { english, spanish } from '../text';
 
 interface FooterProps {}
 
@@ -13,6 +13,7 @@ export const Footer: React.FC<FooterProps> = ({}) => {
 	const [lang, setLang] = useLocalStorage('lang', 'en');
 
 	const changeLocale = () => {
+		if (typeof setLang === 'string') return;
 		if (lang === 'en') {
 			setLang('es');
 		} else {

@@ -22,6 +22,7 @@ import {
 	deleteDoc,
 	updateDoc,
 	doc,
+	CollectionReference,
 } from 'firebase/firestore';
 import { ProjectData } from '../utils/types';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -138,7 +139,10 @@ export const uploadImage = async (
 
 // Projects Firestore
 export const db = getFirestore(app);
-export const colRef = collection(db, 'projects');
+export const colRef = collection(
+	db,
+	'projects'
+) as CollectionReference<ProjectData>;
 
 export const getProjects = async (): Promise<ProjectData[] | undefined> => {
 	try {

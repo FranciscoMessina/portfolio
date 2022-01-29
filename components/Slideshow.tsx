@@ -1,10 +1,11 @@
-import React from 'react';
+/* eslint-disable @next/next/no-img-element */
+import React, { useRef } from 'react';
 
 const delay = 2500;
 
 export function Slideshow({ images }: { images: string[] }) {
 	const [index, setIndex] = React.useState(0);
-	const timeoutRef = React.useRef(null);
+	let timeoutRef: { current: NodeJS.Timeout | null } = useRef(null);
 
 	function resetTimeout() {
 		if (timeoutRef.current) {
@@ -25,7 +26,7 @@ export function Slideshow({ images }: { images: string[] }) {
 		return () => {
 			resetTimeout();
 		};
-	}, [index]);
+	}, [index, images]);
 
 	return (
 		<div className='relative'>

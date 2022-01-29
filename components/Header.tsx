@@ -1,11 +1,11 @@
-import { IconButton } from '@mui/material';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { useWindowSize } from '../hooks/useWindowSize';
-import { DataText, english, spanish } from '../text';
+import { english, spanish } from '../text';
 
 interface HeaderProps {}
 
@@ -45,30 +45,38 @@ export const Header: React.FC<HeaderProps> = ({}) => {
 						open ? 'mobile-menu' : 'desktop-menu'
 					} transition-all duration-300`}
 				>
-					<a href='/#' className='nav-item'>
-						{text.nav.home}
-					</a>
-					<a
+					<Link href='/#'>
+						<a href='' className='nav-item'>
+							{text.nav.home}
+						</a>
+					</Link>
+					<Link
 						href={`${
 							router.pathname.includes('projects') ? '/projects' : '/#projects'
 						}`}
-						className={`nav-item ${
-							router.pathname.includes('projects') && 'text-selected-text'
-						}`}
 					>
-						{text.nav.projects}
-					</a>
-					<a href='/#about' className='nav-item'>
-						{text.nav.about}
-					</a>
-					<a href='/#contact' className='nav-item'>
-						<button
-							className='px-6 py-2 font-bold transition-all duration-200 transform bg-theme hover:translate-x-2 active:scale-95'
+						<a
+							href=''
+							className={`nav-item ${
+								router.pathname.includes('projects') && 'text-selected-text'
+							}`}
+						>
+							{text.nav.projects}
+						</a>
+					</Link>
+					<Link href='/#about'>
+						<a href='' className='nav-item'>
+							{text.nav.about}
+						</a>
+					</Link>
+					<Link href='/#contact'>
+						<a
+							className='px-6 py-2 font-bold transition-all duration-200 transform bg-theme hover:translate-x-2 active:scale-95 nav-item'
 							style={{ color: 'white' }}
 						>
 							{text.nav.contact}
-						</button>
-					</a>
+						</a>
+					</Link>
 					<MdClose
 						className='absolute right-4 md:hidden cursor-pointer'
 						size={'1.5rem'}

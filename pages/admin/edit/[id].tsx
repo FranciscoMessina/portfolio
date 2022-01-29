@@ -1,32 +1,20 @@
-import { CircularProgress, IconButton } from '@mui/material';
-import { doc } from 'firebase/firestore';
-import { Formik, Form, FieldArray } from 'formik';
-import Head from 'next/head';
-import Image from 'next/image';
+/* eslint-disable @next/next/no-img-element */
+import { IconButton } from '@mui/material';
+import { FieldArray, Form, Formik } from 'formik';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import { useDocument, useDocumentData } from 'react-firebase-hooks/firestore';
 import { MdDelete } from 'react-icons/md';
 import InputField from '../../../components/InputField';
 import InputFieldWithIcon from '../../../components/InputFieldWithIcon';
 import { MultipleFileUpload } from '../../../components/MultipleFileUpload';
-import {
-	addProject,
-	db,
-	getProject,
-	updateProject,
-} from '../../../firebase/firebase';
+import { getProject, updateProject } from '../../../firebase/firebase';
 import { ProjectData } from '../../../utils/types';
 
-function Edit() {
+function Edit({ project }: InferGetServerSidePropsType<GetServerSideProps>) {
 	const router = useRouter();
 	const id = router.query.id;
 
-	const docRef = doc(db, 'projects', id!);
-
-	const [project, loading, error] = useDocument<ProjectData>(docRef);
-
-	let initialValues: ProjectData = project?.data() || {
+	let initialValues: ProjectData = project || {
 		title: '',
 		description_en: '',
 		description_es: '',
@@ -35,13 +23,6 @@ function Edit() {
 		source: '',
 		visit: '',
 	};
-
-	if (loading)
-		return (
-			<div className='flex items-center justify-center h-screen'>
-				<CircularProgress sx={{ color: 'purple' }} />
-			</div>
-		);
 
 	return (
 		<div className='flex items-center justify-center w-full mx-auto'>
@@ -162,3 +143,13 @@ function Edit() {
 }
 
 export default Edit;
+
+export const getServerSideProps: GetServerSideProps = async context => {
+	const project = await getProject(context?.params?.id! as string);
+
+	return {
+		props: {
+			project,
+		},
+	};
+};

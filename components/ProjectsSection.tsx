@@ -1,18 +1,13 @@
-import { collection, getFirestore } from 'firebase/firestore';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useCollection } from 'react-firebase-hooks/firestore';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
-import { colRef, getProjects } from '../firebase/firebase';
-import { DataText, spanish, english } from '../text';
+import { colRef } from '../firebase/firebase';
+import { english, spanish } from '../text';
 import { ProjectData } from '../utils/types';
 import { CardLoader } from './CardLoader';
 import { ProjectCard } from './ProjectCard';
-import {
-	useCollection,
-	useCollectionData,
-} from 'react-firebase-hooks/firestore';
 
 interface ProjectsSectionProps {}
 
@@ -45,6 +40,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({}) => {
 
 					{value?.docs.map((project, index) => (
 						<ProjectCard
+							index={index}
 							key={project.id}
 							id={project.id}
 							project={project.data() as ProjectData}
@@ -52,12 +48,9 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({}) => {
 					))}
 
 					<Link href='/projects'>
-						<button
-							type='button'
-							className='w-full col-span-1 py-2 text-center uppercase transition-all duration-300 transform md:col-span-2 lg:col-span-3 left-2 bg-badge hover:bg-theme hover:translate-x-3'
-						>
+						<a className='w-full col-span-1 py-2 text-center uppercase transition-all duration-300 transform md:col-span-2 lg:col-span-3 left-2 bg-badge hover:bg-theme hover:translate-x-3'>
 							{text.lang === 'English' ? 'More Projects' : 'Mas Proyectos'}
-						</button>
+						</a>
 					</Link>
 				</div>
 			</section>

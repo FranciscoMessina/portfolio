@@ -1,6 +1,17 @@
 import { useField } from 'formik';
 
-function InputField({ label = 'Label', name, textarea = false, ...props }) {
+interface InputFieldProps {
+	label?: string;
+	name: string;
+	textarea?: boolean;
+}
+
+function InputField({
+	label = 'Label',
+	name,
+	textarea = false,
+	...props
+}: InputFieldProps) {
 	const [field, meta, helpers] = useField(name);
 
 	return (

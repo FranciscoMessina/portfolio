@@ -1,9 +1,9 @@
 import { IconButton } from '@mui/material';
 import React from 'react';
-import { DataText, english, spanish } from '../text';
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
+import { english, spanish } from '../text';
 
 interface ContactMeProps {}
 

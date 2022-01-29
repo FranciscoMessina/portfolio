@@ -1,20 +1,15 @@
-import Head from 'next/head';
-import { useEffect, useState } from 'react';
-import BackgroundAnimation from '../components/BackgroundAnimation';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../app/store';
+import { AboutMe } from '../components/AboutMe';
 import { ContactMe } from '../components/ContactMe';
+import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { HeroSection } from '../components/HeroSection';
 import { ProjectsSection } from '../components/ProjectsSection';
-import { AboutMe } from '../components/AboutMe';
-import { Footer } from '../components/Footer';
-import { english, spanish } from '../text';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../app/store';
-import { useRouter } from 'next/router';
-import { useLocalStorage } from '../hooks/useLocalStorage';
 import { swap } from '../features/text/textSlice';
-import { ProjectData } from '../utils/types';
-import { getProjects } from '../firebase/firebase';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export default function Home() {
 	const [lang, setLang] = useLocalStorage('lang', 'en');
@@ -28,7 +23,7 @@ export default function Home() {
 		dispatch(swap());
 
 		return () => {};
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		function updateList() {

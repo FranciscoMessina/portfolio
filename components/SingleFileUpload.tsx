@@ -1,7 +1,5 @@
-import { Grid, LinearProgress } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { uploadImage } from '../firebase/firebase';
-import { FileHeader } from './FileHeader';
 
 export interface SingleFileUploadProps {
 	file: File;
@@ -18,7 +16,7 @@ export function SingleFileUpload({
 
 	useEffect(() => {
 		uploadImage(file, setProgress, onSuccess);
-	}, [file]);
+	}, [file, onSuccess]);
 
 	return null;
 }

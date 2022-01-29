@@ -1,4 +1,14 @@
+import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import { useField } from 'formik';
+import React from 'react';
+
+interface InputFieldWithIconProps {
+	label?: string;
+	name: string;
+	textarea?: boolean;
+	icon: ReactJSXElement;
+	iconAction?: () => void;
+}
 
 function InputFieldWithIcon({
 	label = 'Label',
@@ -6,7 +16,7 @@ function InputFieldWithIcon({
 	icon,
 	iconAction,
 	...props
-}) {
+}: InputFieldWithIconProps) {
 	const [field, meta, helpers] = useField(name);
 
 	return (

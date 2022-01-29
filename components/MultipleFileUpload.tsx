@@ -1,5 +1,4 @@
-import { useField } from 'formik';
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 import { FileError, FileRejection, useDropzone } from 'react-dropzone';
 import { SingleFileUpload } from './SingleFileUpload';
 

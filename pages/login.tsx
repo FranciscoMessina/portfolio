@@ -1,12 +1,10 @@
-import { Field, Form, Formik } from 'formik';
+import { getAuth } from 'firebase/auth';
+import { Field, FieldProps, Form, Formik } from 'formik';
 import Link from 'next/link';
 import React from 'react';
-import { Header } from '../components/Header';
-import { app, logOut } from '../firebase/firebase';
-import { getAuth } from 'firebase/auth';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { CircularProgress } from '@mui/material';
-import { useRouter } from 'next/router';
+import { Header } from '../components/Header';
+import { app } from '../firebase/firebase';
 
 interface loginProps {}
 
@@ -26,9 +24,7 @@ const Login: React.FC<loginProps> = ({}) => {
 					Hello! I think maybe you are lost, you should not be here, do you want
 					to go back to the{' '}
 					<Link href='/'>
-						<span className='text-blue-500 underline cursor-pointer'>
-							home page
-						</span>
+						<a className='text-blue-500 underline cursor-pointer'>home page</a>
 					</Link>
 					?
 				</p>
@@ -39,7 +35,7 @@ const Login: React.FC<loginProps> = ({}) => {
 				>
 					<Form>
 						<Field name='email'>
-							{({ field, form, meta }) => (
+							{({ field, form, meta }: FieldProps) => (
 								<div className='flex flex-col'>
 									<label htmlFor='email'>Email:</label>
 									<input
@@ -52,7 +48,7 @@ const Login: React.FC<loginProps> = ({}) => {
 							)}
 						</Field>
 						<Field name='password'>
-							{({ field, form, meta }) => (
+							{({ field, form, meta }: FieldProps) => (
 								<div className='flex flex-col'>
 									<label htmlFor='password'>Password:</label>
 									<input

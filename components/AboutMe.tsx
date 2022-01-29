@@ -8,8 +8,7 @@ import {
 } from 'react-icons/si';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
-
-import { DataText, english, spanish } from '../text';
+import { english, spanish } from '../text';
 
 interface AboutMeProps {}
 
