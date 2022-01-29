@@ -1,5 +1,5 @@
-import { IconButton } from '@mui/material';
-import React from 'react';
+import IconButton from '@mui/material/IconButton';
+import { FC } from 'react';
 import { MdArrowUpward, MdLanguage } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../app/store';
@@ -9,7 +9,7 @@ import { english, spanish } from '../text';
 
 interface FooterProps {}
 
-export const Footer: React.FC<FooterProps> = ({}) => {
+export const Footer: FC<FooterProps> = ({}) => {
 	const [lang, setLang] = useLocalStorage('lang', 'en');
 
 	const changeLocale = () => {

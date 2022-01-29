@@ -1,5 +1,5 @@
 import { IconButton } from '@mui/material';
-import React from 'react';
+import { FC } from 'react';
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
@@ -7,7 +7,7 @@ import { english, spanish } from '../text';
 
 interface ContactMeProps {}
 
-export const ContactMe: React.FC<ContactMeProps> = ({}) => {
+export const ContactMe: FC<ContactMeProps> = ({}) => {
 	const locale = useSelector((state: RootState) => state.text.locale);
 
 	const text = locale === 'en' ? english : spanish;

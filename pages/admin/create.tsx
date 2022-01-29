@@ -1,12 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import { IconButton } from '@mui/material';
+import { getAuth } from 'firebase/auth';
 import { FieldArray, Form, Formik } from 'formik';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { MdDelete } from 'react-icons/md';
 import InputField from '../../components/InputField';
 import InputFieldWithIcon from '../../components/InputFieldWithIcon';
 import { MultipleFileUpload } from '../../components/MultipleFileUpload';
-import { addProject } from '../../firebase/firebase';
+import { addProject, app, deleteImg } from '../../firebase/firebase';
 import { ProjectData } from '../../utils/types';
 
 const initialValues: ProjectData = {
@@ -21,6 +23,21 @@ const initialValues: ProjectData = {
 
 function Create() {
 	const router = useRouter();
+	const [user, loading, error] = useAuthState(getAuth(app));
+
+	if (!user)
+		return (
+			<p className='text-center flex items-center justify-center h-full min-h-[700px]'>
+				<span>
+					Hello! I think maybe you are lost, you should not be here, do you want
+					to go back to the{' '}
+					<Link href='/'>
+						<a className='text-blue-500 underline cursor-pointer'>home page</a>
+					</Link>
+					?
+				</span>
+			</p>
+		);
 
 	return (
 		<div className='flex items-center justify-center w-full mx-auto'>
@@ -98,14 +115,15 @@ function Create() {
 													/>
 
 													<div className='absolute flex items-center justify-center h-40 transition-all duration-300 bg-black opacity-0 bg-opacity-20 w-40 min-w-[160px] group-hover:opacity-100 top-0 '>
-														<IconButton
-															type='button'
-															sx={{ color: '#a51d1d' }}
-															size='large'
-															onClick={() => remove(index)}
-														>
-															<MdDelete size={'2rem'} />
-														</IconButton>
+														<MdDelete
+															size={'2rem'}
+															onClick={() => {
+																remove(index);
+																deleteImg(link);
+															}}
+															color='white'
+															className='cursor-pointer'
+														/>
 													</div>
 												</div>
 											))}

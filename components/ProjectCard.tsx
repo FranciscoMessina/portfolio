@@ -29,6 +29,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
 	return (
 		<motion.div
+			layout
 			variants={variantChild}
 			initial='hide'
 			animate='show'

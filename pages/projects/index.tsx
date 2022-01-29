@@ -1,18 +1,17 @@
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next/types';
 import React from 'react';
-import { useCollection } from 'react-firebase-hooks/firestore';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
-import { CardLoader } from '../../components/CardLoader';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { ProjectCard } from '../../components/ProjectCard';
-import { colRef } from '../../firebase/firebase';
+import { getProjects } from '../../firebase/firebase';
 import { english, spanish } from '../../text';
 import { ProjectData } from '../../utils/types';
 
-function Projects() {
-	const [value, loading, error] = useCollection<ProjectData>(colRef);
-
+function Projects({
+	projects,
+}: InferGetServerSidePropsType<GetServerSideProps>) {
 	const locale = useSelector((state: RootState) => state.text.locale);
 
 	const text = locale === 'en' ? english : spanish;
@@ -27,26 +26,12 @@ function Projects() {
 					</h2>
 					<p className='section-paragraph'>{text.projects_desc}</p>
 					<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 '>
-						{loading && (
-							<>
-								{/* <motion.div variants={variantChild}> */}
-								<CardLoader />
-								{/* </motion.div> */}
-								{/* <motion.div variants={variantChild}> */}
-								<CardLoader />
-								{/* </motion.div> */}
-								{/* <motion.div variants={variantChild}> */}
-								<CardLoader />
-								{/* </motion.div> */}
-							</>
-						)}
-
-						{value?.docs.map((project, index) => (
+						{projects.map((project: ProjectData, index: number) => (
 							<ProjectCard
 								index={index}
 								key={project.id}
-								id={project.id}
-								project={project.data() as ProjectData}
+								id={project.id!}
+								project={project}
 							/>
 						))}
 
@@ -65,3 +50,13 @@ function Projects() {
 }
 
 export default Projects;
+
+export const getServerSideProps: GetServerSideProps = async context => {
+	const projects: ProjectData[] = (await getProjects()) as ProjectData[];
+
+	return {
+		props: {
+			projects,
+		},
+	};
+};

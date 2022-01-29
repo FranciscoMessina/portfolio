@@ -16,7 +16,8 @@ export function SingleFileUpload({
 
 	useEffect(() => {
 		uploadImage(file, setProgress, onSuccess);
-	}, [file, onSuccess]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [file]);
 
 	return null;
 }

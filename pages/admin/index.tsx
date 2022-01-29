@@ -1,20 +1,26 @@
 import { CircularProgress } from '@mui/material';
 import { getAuth } from 'firebase/auth';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { MdClose } from 'react-icons/md';
-import { app, colRef, logOut } from '../../firebase/firebase';
+import {
+	app,
+	colRef,
+	deleteProject,
+	getProjects,
+	logOut,
+} from '../../firebase/firebase';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { ProjectData } from '../../utils/types';
 
-function Admin() {
+function Admin({ projects }: InferGetServerSidePropsType<GetServerSideProps>) {
 	const router = useRouter();
 	const [user, loading, error] = useAuthState(getAuth(app));
-
-	const [value, projLoading, projErr] = useCollection<ProjectData>(colRef);
+	// let user = true;
 
 	const [open, setOpen] = useState(false);
 	const { width } = useWindowSize();
@@ -35,13 +41,6 @@ function Admin() {
 
 		return () => window.removeEventListener('scroll', handleScroll);
 	});
-
-	if (loading)
-		return (
-			<div className='flex items-center justify-center h-screen'>
-				<CircularProgress sx={{ color: 'purple' }} />
-			</div>
-		);
 
 	if (!user)
 		return (
@@ -114,19 +113,22 @@ function Admin() {
 				</div>
 			</header>
 			<div className='container flex flex-col items-center gap-4 justify-center w-full px-8 mx-auto mt-32 md:px-14 lg:px-24'>
-				{value?.docs.map(project => (
+				{projects.map((project: ProjectData) => (
 					<div
 						key={project.id}
 						className='w-full max-w-2xl bg-nav border-b-2 border-theme px-4 py-2 flex justify-between'
 					>
-						<span>{project.data().title}</span>
+						<span>{project.title}</span>
 						<div className='space-x-2 md:space-x-4'>
 							<Link href={`/admin/edit/${project.id}`}>
 								<a className='bg-amber-500 px-1 uppercase shadow shadow-amber-500/70'>
 									Edit
 								</a>
 							</Link>
-							<button className='bg-red-500 px-1 uppercase shadow shadow-red-500/70'>
+							<button
+								className='bg-red-500 px-1 uppercase shadow shadow-red-500/70'
+								onClick={() => deleteProject(project.id!, project.images)}
+							>
 								delete
 							</button>
 						</div>
@@ -138,3 +140,13 @@ function Admin() {
 }
 
 export default Admin;
+
+export const getServerSideProps: GetServerSideProps = async context => {
+	const projects: ProjectData[] = (await getProjects()) as ProjectData[];
+
+	return {
+		props: {
+			projects,
+		},
+	};
+};

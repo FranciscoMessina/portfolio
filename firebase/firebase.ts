@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import {
+	deleteObject,
 	getDownloadURL,
 	getStorage,
 	ref,
@@ -137,6 +138,34 @@ export const uploadImage = async (
 	);
 };
 
+export const deleteImages = async (images: string[]) => {
+	try {
+		const finished = await Promise.all(
+			images.map(async element => {
+				const imgRef = ref(storage, element);
+				try {
+					await deleteObject(imgRef);
+				} catch (err) {
+					console.log(err);
+				}
+			})
+		);
+		return finished;
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+export const deleteImg = async (img: string) => {
+	try {
+		const imgRef = ref(storage, img);
+
+		await deleteObject(imgRef);
+	} catch (err) {
+		console.log(err);
+	}
+};
+
 // Projects Firestore
 export const db = getFirestore(app);
 export const colRef = collection(
@@ -207,12 +236,13 @@ export const updateProject = async ({ id, ...data }: ProjectData) => {
 	}
 };
 
-export const deleteProject = async (id: string) => {
+export const deleteProject = async (id: string, images: string[]) => {
 	const docRef = doc(db, 'projects', id!);
 
 	try {
-		await deleteDoc(docRef);
-		console.log('holii');
+		const imgsDeleted = await deleteImages(images);
+		const deleted = await deleteDoc(docRef);
+		return deleted;
 	} catch (err) {
 		console.log(err);
 	}

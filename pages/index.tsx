@@ -75,7 +75,6 @@ export default function Home() {
 			<AboutMe />
 			<ContactMe />
 			<Footer />
-			{/* <BackgroundAnimation /> */}
 		</div>
 	);
 }

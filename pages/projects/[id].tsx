@@ -57,22 +57,26 @@ function Project({
 									: project?.description_es}
 							</p>
 							<div className='flex gap-6 md:self-end'>
-								<a
-									href={project?.source}
-									target='_blank'
-									rel='noopener noreferrer'
-									className='transition-all duration-200 transform bg-theme hover:translate-x-2 active:scale-95 px-4 py-2'
-								>
-									Github
-								</a>
-								<a
-									href={project?.visit}
-									target='_blank'
-									rel='noopener noreferrer'
-									className='transition-all duration-200 transform bg-theme hover:translate-x-2 active:scale-95 px-4 py-2'
-								>
-									Deployment
-								</a>
+								{project?.source && (
+									<a
+										href={project?.source}
+										target='_blank'
+										rel='noopener noreferrer'
+										className='transition-all duration-200 transform bg-theme hover:translate-x-2 active:scale-95 px-4 py-2'
+									>
+										Github
+									</a>
+								)}
+								{project?.visit && (
+									<a
+										href={project?.visit}
+										target='_blank'
+										rel='noopener noreferrer'
+										className='transition-all duration-200 transform bg-theme hover:translate-x-2 active:scale-95 px-4 py-2'
+									>
+										Deployment
+									</a>
+								)}
 							</div>
 						</div>
 					</div>
@@ -87,6 +91,12 @@ export default Project;
 
 export const getServerSideProps: GetServerSideProps = async context => {
 	const project = await getProject(context?.params?.id! as string);
+
+	if (!project) {
+		return {
+			notFound: true,
+		};
+	}
 
 	return {
 		props: {

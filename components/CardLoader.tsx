@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
+
+import { FC } from 'react';
 
 interface CardLoaderProps {}
 
-export const CardLoader: React.FC<CardLoaderProps> = ({}) => {
+export const CardLoader: FC<CardLoaderProps> = ({}) => {
 	return (
 		<div className='relative animate-pulse select-none group animate-pulse bg-nav'>
 			<img
