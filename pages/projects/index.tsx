@@ -7,7 +7,7 @@ import { Header } from '../../components/Header';
 import { ProjectCard } from '../../components/ProjectCard';
 import { getProjects } from '../../firebase/firebase';
 import { english, spanish } from '../../text';
-import { ProjectData } from '../../utils/types';
+import { ProjectData } from '../../types/types';
 
 function Projects({
 	projects,

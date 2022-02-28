@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { colRef } from '../firebase/firebase';
 import { english, spanish } from '../text';
-import { ProjectData } from '../utils/types';
+import { ProjectData } from '../types/types';
 import { CardLoader } from './CardLoader';
 import { ProjectCard } from './ProjectCard';
 

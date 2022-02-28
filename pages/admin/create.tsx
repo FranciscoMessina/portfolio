@@ -9,7 +9,7 @@ import InputField from '../../components/InputField';
 import InputFieldWithIcon from '../../components/InputFieldWithIcon';
 import { MultipleFileUpload } from '../../components/MultipleFileUpload';
 import { addProject, app, deleteImg } from '../../firebase/firebase';
-import { ProjectData } from '../../utils/types';
+import { ProjectData } from '../../types/types';
 
 const initialValues: ProjectData = {
 	title: '',

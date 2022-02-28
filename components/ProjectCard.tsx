@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import React from 'react';
-import { ProjectData } from '../utils/types';
+import { ProjectData } from '../types/types';
 
 interface ProjectCardProps {
 	project: ProjectData;

@@ -15,7 +15,7 @@ import {
 	getProject,
 	updateProject,
 } from '../../../firebase/firebase';
-import { ProjectData } from '../../../utils/types';
+import { ProjectData } from '../../../types/types';
 
 function Edit({ project }: InferGetServerSidePropsType<GetServerSideProps>) {
 	const router = useRouter();

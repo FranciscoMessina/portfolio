@@ -15,7 +15,7 @@ import {
 	logOut,
 } from '../../firebase/firebase';
 import { useWindowSize } from '../../hooks/useWindowSize';
-import { ProjectData } from '../../utils/types';
+import { ProjectData } from '../../types/types';
 
 function Admin({ projects }: InferGetServerSidePropsType<GetServerSideProps>) {
 	const router = useRouter();

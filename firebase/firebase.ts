@@ -25,7 +25,7 @@ import {
 	doc,
 	CollectionReference,
 } from 'firebase/firestore';
-import { ProjectData } from '../utils/types';
+import { ProjectData } from '../types/types';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 

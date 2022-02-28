@@ -18,8 +18,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({}) => {
 				<nav className='fixed hidden lg:inline-block lg:mr-24 lg:w-4 left-percentage'>
 					<>
 						<motion.div
-							initial={{ translateY: '-1500px' }}
-							animate={{ translateY: '0px' }}
+							initial={{ translateX: '-1500px' }}
+							animate={{ translateX: '0px' }}
 							transition={{
 								delay: 0.5,
 								duration: 1,
@@ -68,8 +68,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({}) => {
 				<div className='flex flex-wrap justify-center max-w-xl mt-20 sm:mt-0 lg:ml-20 md:justify-start md:my-36 '>
 					<motion.h1
 						className='text-4xl font-bold text-center md:text-6xl lg:text-7xl md:text-left'
-						initial={{ translateY: '-1500px' }}
-						animate={{ translateY: '0px' }}
+						initial={{ translateX: '-1500px' }}
+						animate={{ translateX: '0px' }}
 						transition={{
 							delay: 0.5,
 							duration: 1,

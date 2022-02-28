@@ -38,7 +38,9 @@ export const Header: React.FC<HeaderProps> = ({}) => {
 	return (
 		<header className='sticky top-0 z-50 py-6 bg-body bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-5 md'>
 			<div className='container flex items-center justify-between w-full px-6 mx-auto lg:px-24'>
-				<div className='text-xl font-bold'>Francisco.Messina</div>
+				<div className='text-xl font-bold'>
+					<Link href='/#'>Francisco.Messina</Link>
+				</div>
 
 				<nav
 					className={`${
@@ -46,9 +48,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
 					} transition-all duration-300`}
 				>
 					<Link href='/#'>
-						<a href='' className='nav-item'>
-							{text.nav.home}
-						</a>
+						<a className='nav-item'>{text.nav.home}</a>
 					</Link>
 					<Link
 						href={`${
@@ -56,7 +56,6 @@ export const Header: React.FC<HeaderProps> = ({}) => {
 						}`}
 					>
 						<a
-							href=''
 							className={`nav-item ${
 								router.pathname.includes('projects') && 'text-selected-text'
 							}`}
@@ -65,9 +64,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
 						</a>
 					</Link>
 					<Link href='/#about'>
-						<a href='' className='nav-item'>
-							{text.nav.about}
-						</a>
+						<a className='nav-item'>{text.nav.about}</a>
 					</Link>
 					<Link href='/#contact'>
 						<a
